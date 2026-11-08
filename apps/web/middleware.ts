@@ -12,21 +12,21 @@ export function middleware(request: NextRequest) {
   const session = request.cookies.get("eduplay_session")?.value;
   const isAuthenticated = session === "student";
 
-  // If user is authenticated and tries to visit /login or root /, redirect to /subjects
+  // If user is authenticated and visits /login, redirect to /subjects
   if (isAuthenticated) {
-    if (pathname === "/login" || pathname === "/") {
+    if (pathname === "/login") {
       return NextResponse.redirect(new URL("/subjects", request.url));
     }
     return NextResponse.next();
   }
 
   // If user is NOT authenticated:
-  // Allow /login
-  if (pathname === "/login") {
+  // Allow public landing page (/) and /login
+  if (pathname === "/" || pathname === "/login") {
     return NextResponse.next();
   }
 
-  // Redirect unauthenticated requests to /login
+  // Redirect unauthenticated requests to protected pages to /login
   return NextResponse.redirect(new URL("/login", request.url));
 }
 

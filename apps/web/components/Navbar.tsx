@@ -11,8 +11,8 @@ export default function Navbar() {
   const router = useRouter();
   const [loggingOut, setLoggingOut] = useState(false);
 
-  // Do not show navbar on login page
-  if (pathname === "/login") {
+  // Do not show app navbar on login page or public landing page
+  if (pathname === "/login" || pathname === "/") {
     return null;
   }
 
@@ -82,4 +82,3 @@ export default function Navbar() {
     </header>
   );
 }
-
