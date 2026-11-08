@@ -29,6 +29,9 @@ export interface SubjectItem {
   active: boolean;
   badge?: string;
   icon: string;
+  chapterTitle?: string;
+  topics?: string[];
+  estimatedTime?: string;
 }
 
 export const SUBJECTS: SubjectItem[] = [
@@ -38,6 +41,9 @@ export const SUBJECTS: SubjectItem[] = [
     description: "Théorie des graphes : découvrez les graphes orientés, non orientés et leurs applications.",
     active: true,
     icon: "Calculator",
+    chapterTitle: "Chapitre 1 : Graphes orientés et non orientés",
+    topics: ["Sommets & Arêtes", "Degrés entrant / sortant", "Matrice d'adjacence", "Applications"],
+    estimatedTime: "~15 min",
   },
   {
     id: "english",
@@ -46,6 +52,9 @@ export const SUBJECTS: SubjectItem[] = [
     active: false,
     badge: "Coming soon",
     icon: "BookOpen",
+    chapterTitle: "Chapter 1 : Essential Study Skills",
+    topics: ["SMART Goals", "Time Management", "Active Reading"],
+    estimatedTime: "En cours d'intégration",
   },
   {
     id: "informatique",
@@ -54,6 +63,9 @@ export const SUBJECTS: SubjectItem[] = [
     active: false,
     badge: "Coming soon",
     icon: "Code",
+    chapterTitle: "Chapitre 1 : Introduction à l'informatique",
+    topics: ["Architecture & Matériel", "Systèmes & Fichiers", "Algorithmique"],
+    estimatedTime: "En cours d'intégration",
   },
   {
     id: "multimedia",
@@ -62,6 +74,9 @@ export const SUBJECTS: SubjectItem[] = [
     active: false,
     badge: "Coming soon",
     icon: "Film",
+    chapterTitle: "Chapitre 1 : Domaine du Multimédia",
+    topics: ["Image vectorielle / matricielle", "Compression", "Numérisation"],
+    estimatedTime: "En cours d'intégration",
   },
 ];
 
