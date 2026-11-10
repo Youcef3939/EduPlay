@@ -152,7 +152,7 @@ export function getCourseData(subjectId: string): CourseData | null {
     if (images.length > 0) {
       const imgFile = images[0];
       imageInfo = {
-        url: `/api/media/${subjectId}/images/${imgFile}`,
+        url: `/media/${subjectId}/images/${imgFile}`,
         caption: getCaptionFromFileName(imgFile),
       };
     }

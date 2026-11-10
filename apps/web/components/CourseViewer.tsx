@@ -8,8 +8,12 @@ import {
   PlayCircle,
   BookOpen,
   HelpCircle,
-  ExternalLink,
 } from "lucide-react";
+
+function getYouTubeEmbedUrl(url: string): string | null {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
+  return match ? `https://www.youtube.com/embed/${match[1]}?rel=0&modestbranding=1` : null;
+}
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import type { CourseData } from "@/lib/content";
@@ -97,13 +101,13 @@ export default function CourseViewer({ course }: CourseViewerProps) {
         )}
 
         {/* Video Resource Section */}
-        <div className="course-video-box my-8 p-5 rounded-2xl bg-indigo-50/60 border border-indigo-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center shadow-soft flex-shrink-0">
-              <PlayCircle className="w-6 h-6" />
+        <div className="course-video-box my-8">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shadow-soft flex-shrink-0">
+              <PlayCircle className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-text text-lg">
+              <h3 className="font-bold text-text text-lg leading-tight">
                 Vidéo explicative du cours
               </h3>
               <p className="text-sm text-muted">
@@ -112,26 +116,23 @@ export default function CourseViewer({ course }: CourseViewerProps) {
             </div>
           </div>
 
-          <div>
-            {course.video.isAvailable && course.video.url ? (
-              <a
-                href={course.video.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-indigo-700 text-white font-bold text-base shadow-soft transition-all duration-200"
-              >
-                <span>Voir la vidéo</span>
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            ) : (
-              <button
-                disabled
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-200 text-muted font-bold text-base cursor-not-allowed opacity-75"
-              >
-                <span>Video coming soon</span>
-              </button>
-            )}
-          </div>
+          {course.video.isAvailable && course.video.url && getYouTubeEmbedUrl(course.video.url) ? (
+            <div className="relative w-full rounded-2xl overflow-hidden border border-indigo-100 shadow-soft bg-black"
+              style={{ aspectRatio: "16/9" }}>
+              <iframe
+                src={getYouTubeEmbedUrl(course.video.url)!}
+                title="Vidéo explicative du cours"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          ) : (
+            <div className="flex items-center gap-3 p-5 rounded-2xl bg-slate-100 border border-slate-200 text-muted font-semibold">
+              <PlayCircle className="w-5 h-5 opacity-50" />
+              <span>Vidéo coming soon</span>
+            </div>
+          )}
         </div>
 
         {/* Course Paragraphs Content */}
